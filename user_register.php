@@ -14,29 +14,31 @@ if(!empty($_POST)){
   $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
 
   //未入力チェック
-  empty_check($name, 'name');
-  empty_check($email, 'email');
-  empty_check($pass, 'pass');
-  empty_check($pass_re, 'pass_re');
+  $error = emptyCheck($error, $name, 'name');
+  $error = emptyCheck($error, $email, 'email');
+  $error = emptyCheck($error, $pass, 'pass');
+  $error = emptyCheck($error, $pass_re, 'pass_re');
 
-  if(empty($error)){
+  if($error['name'] === null && $error['email'] === null &&
+    $error['pass'] === null && $error['pass_re'] === null){
 
     //最小、最大文字数チェック
-    MinLen_check($pass, 'pass');
-    userNameMaxLen_check($name, 'name');
-    maxLen_check($email, 'email');
-    maxLen_check($pass, 'pass');
+    $error = MinLenCheck($error, $pass, 'pass');
+    $error = userNameMaxLenCheck($error, $name, 'name');
+    $error = maxLenCheck($error, $email, 'email');
+    $error = maxLenCheck($error, $pass, 'pass');
 
     //email形式チェック
-    emailFormat_check($email, 'email');
+    $error = emailFormatCheck($error, $email, 'email');
 
     //email重複チェック
-    emailDouble_check();
+    $error = emailDoubleCheck($error, $email);
 
     //パスワード同一チェック
-    passSame_check($pass, $pass_re, 'pass');
+    $error = passSameCheck($error, $pass, $pass_re, 'pass_re');
 
-    if(empty($error)){
+    if($error['name'] === null && $error['email'] === null &&
+      $error['pass'] === null && $error['pass_re'] === null){
 
       try {
         // データベース接続
