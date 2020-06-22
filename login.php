@@ -15,36 +15,46 @@ if($_POST){
   $error = emptyCheck($error, $email, 'email');
   $error = emptyCheck($error, $pass, 'pass');
 
-  if($error['email'] === null && $error['pass'] === null){
+  if(count($error) === 0){
 
-    try {
-      // データベースに接続
-      $pdo = dbConnect();
+    //最小、最大文字数チェック
+    $error = MinLenCheck($error, $pass, 'pass');
+    $error = maxLenCheck($error, $email, 'email');
+    $error = maxLenCheck($error, $pass, 'pass');
 
-      $stmt = $pdo->prepare('SELECT password,id  FROM users WHERE email = :email');
-      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-      $stmt->execute();
-      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //email形式チェック
+    $error = emailFormatCheck($error, $email, 'email');
 
-      // パスワード照合
-      if($result && password_verify($pass, $result['password'])){
+    if(count($error) === 0){
+
+      try {
+        // データベースに接続
+        $pdo = dbConnect();
+
+        $stmt = $pdo->prepare('SELECT password,id  FROM users WHERE email = :email');
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // パスワード照合
+        if($result && password_verify($pass, $result['password'])){
 
           //ユーザーIDを格納
-          $_SESSION['user_id'] = $result['id'];
+          //$_SESSION['user_id'] = $result['id'];
 
           header("Location:login.php");
 
-          exit;
-
-      }else{
+        }else{
 
           $error['login'] = 'メールアドレスまたはパスワードが正しくありません';
 
+        }
+
+      } catch (PDOException $e) {
+
+        exit($e->getMessage());
+
       }
-
-    } catch (PDOException $e) {
-
-      exit($e->getMessage());
 
     }
 
