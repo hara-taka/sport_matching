@@ -36,23 +36,25 @@ if($_POST){
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // パスワード照合
-        if($result && password_verify($pass, $result['password'])){
-
-          //ユーザーIDを格納
-          //$_SESSION['user_id'] = $result['id'];
-
-          header("Location:login.php");
-
-        }else{
-
-          $error['login'] = 'メールアドレスまたはパスワードが正しくありません';
-
-        }
-
       } catch (PDOException $e) {
 
         exit($e->getMessage());
+
+      }
+
+      // パスワード照合
+      if($result && password_verify($pass, $result['password'])){
+
+        //ユーザーIDを格納
+        $_SESSION['user_id'] = $result['id'];
+
+        header("Location:login.php");
+
+        exit;
+
+      }else{
+
+        $error['login'] = 'メールアドレスまたはパスワードが正しくありません';
 
       }
 
