@@ -2,7 +2,7 @@
 
 session_start();
 
-$_SESSION = array();
+$_SESSION = [];
 
 setcookie(session_name(), '', time()-1, '/');
 
