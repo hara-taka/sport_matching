@@ -81,3 +81,17 @@ function passSameCheck($error, $str1, $str2, $key){
   }
   return $error;
 }
+
+//サニタイズ
+function sanitize($str){
+  return htmlspecialchars($str,ENT_QUOTES);
+}
+
+//画像表示
+function showImg($path){
+  if($path){
+    return 'img/'.$path;
+  }else{
+    return 'img/defaultImage.png';
+  }
+}
