@@ -37,19 +37,19 @@ try {
   </head>
   <body>
     <div class="profile_wrapper">
-      <?php echo showImg(sanitize($profile['image'])); ?>
+      <?= showImg(sanitize($profile['image'])); ?>
       <h2>ユーザー名</h2>
-      <?php echo sanitize($profile['name']); ?>
+      <?= sanitize($profile['name']); ?>
       <h2>性別</h2>
-      <?php echo sanitize($profile['gender']); ?>
+      <?= sanitize($profile['gender']); ?>
       <h2>年齢</h2>
-      <?php echo sanitize($profile['age']); ?>
+      <?= sanitize($profile['age']); ?>
       <h2>スポーツジャンル</h2>
-      <?php echo sanitize($profile['sport_category1']); ?>
-      <?php echo sanitize($profile['sport_category2']); ?>
-      <?php echo sanitize($profile['sport_category3']); ?>
+      <?= sanitize($profile['sport_category1']); ?>
+      <?= sanitize($profile['sport_category2']); ?>
+      <?= sanitize($profile['sport_category3']); ?>
       <h2>自己紹介</h2>
-      <?php echo sanitize($profile['comment']); ?>
+      <?= sanitize($profile['comment']); ?>
     </div>
   </body>
 </html>
