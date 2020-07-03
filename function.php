@@ -49,6 +49,15 @@ function maxLenCheck($error, $str, $key, $max = 255){
   return $error;
 }
 
+//最大文字数チェック(自己紹介)
+function commentMaxLenCheck($error, $str, $key, $max = 200){
+  if(mb_strlen($str) > $max){
+    $error[$key] = '200文字以内でご入力してください';
+    return  $error;
+  }
+  return $error;
+}
+
 //email形式チェック
 function emailFormatCheck($error, $str, $key){
   if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $str)){
@@ -65,12 +74,42 @@ function emailDoubleCheck($error, $email){
     $stmt->bindValue(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    if(!empty($result)){
+    if($result){
       $error['email'] = 'このメールアドレスは既に登録されています';
     }
     return $error;
+
   } catch (Exception $e) {
+
     exit($e->getMessage());
+
+  }
+}
+
+//email重複チェック(プロフィール編集用)
+function profileEditEmailDoubleCheck($error, $email, $user_id){
+  try {
+    $pdo = dbConnect();
+
+    $stmt1 = $pdo->prepare('SELECT * FROM users WHERE email = :email');
+    $stmt1->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt1->execute();
+    $result1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+    $stmt2 = $pdo->prepare('SELECT email FROM users WHERE id = :id');
+    $stmt2->bindValue(':id', $user_id, PDO::PARAM_INT);
+    $stmt2->execute();
+    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+    if($result1 && $email !== $result2['email']){
+      $error['email'] = 'このメールアドレスは既に登録されています';
+    }
+    return $error;
+
+  } catch (Exception $e) {
+
+    exit($e->getMessage());
+
   }
 }
 
@@ -78,6 +117,18 @@ function emailDoubleCheck($error, $email){
 function passSameCheck($error, $str1, $str2, $key){
   if($str1 !== $str2){
     $error[$key] = '「パスワード」「パスワード(確認用)」が不一致です';
+  }
+  return $error;
+}
+
+//スポーツジャンル重複チェック
+function sportCategoryDoubleCheck($error, $category1, $category2, $category3){
+  if(($category1 === '' && $category2 !== '' && $category3 !== '' && $category2 === $category3) ||
+    ($category2 === '' && $category1 !== '' && $category3 !== '' && $category1 === $category3) ||
+    ($category3 === '' && $category1 !== '' && $category2 !== '' && $category1 === $category2) ||
+    ($category1 !== '' && $category2 !== '' && $category3 !== '' && $category1 === $category2 && $category2 === $category3)){
+
+    $error[$key] = '異なるスポーツジャンルを選択してください';
   }
   return $error;
 }
@@ -93,5 +144,149 @@ function showImg($path){
     return 'img/'.$path;
   }else{
     return 'img/defaultImage.png';
+  }
+}
+
+//プロフィール情報取得
+function getProfile($user_id){
+  try {
+    // データベースに接続
+    $pdo = dbConnect();
+
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :id');
+    $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $profile;
+
+  } catch (PDOException $e) {
+
+    exit($e->getMessage());
+
+  }
+}
+
+//プロフィール表示(スポーツジャンル1)
+function showProfileSportCategory1($profile){
+  switch($profile['sport_category1']){
+    case 'baseball':
+      $sport_category1 = '野球';
+      return $sport_category1;
+      break;
+    case 'soccer':
+      $sport_category1 = 'サッカー';
+      return $sport_category1;
+      break;
+    case 'volleyball':
+      $sport_category1 = 'バレーボール';
+      return $sport_category1;
+      break;
+    default;
+      $sport_category1 = '';
+      return $sport_category1;
+  }
+}
+
+//プロフィール表示(スポーツジャンル2)
+function showProfileSportCategory2($profile){
+  switch($profile['sport_category2']){
+    case 'baseball':
+      $sport_category2 = '野球';
+      return $sport_category2;
+      break;
+    case 'soccer':
+      $sport_category2 = 'サッカー';
+      return $sport_category2;
+      break;
+    case 'volleyball':
+      $sport_category2 = 'バレーボール';
+      return $sport_category2;
+      break;
+    default;
+      $sport_category2 = '';
+      return $sport_category2;
+  }
+}
+
+//プロフィール表示(スポーツジャンル3)
+function showProfileSportCategory3($profile){
+  switch($profile['sport_category3']){
+    case 'baseball':
+      $sport_category3 = '野球';
+      return $sport_category3;
+      break;
+    case 'soccer':
+      $sport_category3 = 'サッカー';
+      return $sport_category3;
+      break;
+    case 'volleyball':
+      $sport_category3 = 'バレーボール';
+      return $sport_category3;
+      break;
+    default:
+      $sport_category3 = '';
+      return $sport_category3;
+  }
+}
+
+//プロフィール表示(性別)
+function showProfileGender($profile){
+  switch($profile['gender']){
+    case '1':
+      $gender = '男性';
+      return $gender;
+      break;
+    case '2':
+      $gender = '女性';
+      return $gender;
+      break;
+    default:
+      $gender = '';
+      return $gender;
+  }
+}
+
+//プロフィール表示(年齢)
+function showProfileAge($profile){
+  switch($profile['age']){
+    case '10':
+      $age = '10代';
+      return $age;
+      break;
+    case '20':
+      $age = '20代';
+      return $age;
+      break;
+    case '30':
+      $age = '30代';
+      return $age;
+      break;
+    case '40':
+      $age = '40代';
+      return $age;
+      break;
+    case '50':
+      $age = '50代';
+      return $age;
+      break;
+    case '60':
+      $age = '60代';
+      return $age;
+      break;
+    case '70':
+      $age = '70代';
+      return $age;
+      break;
+    case '80':
+      $age = '80代';
+      return $age;
+      break;
+    case '90':
+      $age = '90代';
+      return $age;
+      break;
+    default:
+      $age = '';
+      return $age;
   }
 }
