@@ -46,9 +46,9 @@ try {
       <h2>年齢</h2>
       <?= sanitize(showProfileAge($profile)); ?>
       <h2>スポーツジャンル</h2>
-      <?= sanitize(showProfileSportCategory1($profile)); ?>
-      <?= sanitize(showProfileSportCategory2($profile)); ?>
-      <?= sanitize(showProfileSportCategory3($profile)); ?>
+      <?= sanitize(showProfileSportCategory($profile['sport_category1'])); ?>
+      <?= sanitize(showProfileSportCategory($profile['sport_category2'])); ?>
+      <?= sanitize(showProfileSportCategory($profile['sport_category3'])); ?>
       <h2>自己紹介</h2>
       <?= sanitize($profile['comment']); ?>
     </div>

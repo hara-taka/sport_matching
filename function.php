@@ -53,7 +53,6 @@ function maxLenCheck($error, $str, $key, $max = 255){
 function commentMaxLenCheck($error, $str, $key, $max = 200){
   if(mb_strlen($str) > $max){
     $error[$key] = '200文字以内でご入力してください';
-    return  $error;
   }
   return $error;
 }
@@ -122,14 +121,19 @@ function passSameCheck($error, $str1, $str2, $key){
 }
 
 //スポーツジャンル重複チェック
-function sportCategoryDoubleCheck($error, $category1, $category2, $category3){
-  if(($category1 === '' && $category2 !== '' && $category3 !== '' && $category2 === $category3) ||
-    ($category2 === '' && $category1 !== '' && $category3 !== '' && $category1 === $category3) ||
-    ($category3 === '' && $category1 !== '' && $category2 !== '' && $category1 === $category2) ||
-    ($category1 !== '' && $category2 !== '' && $category3 !== '' && $category1 === $category2 && $category2 === $category3)){
+function sportCategoryDoubleCheck($error, $category1, $category2, $category3,$key){
 
-    $error[$key] = '異なるスポーツジャンルを選択してください';
+  $sport_category_array = [$category1, $category2, $category3];
+  $value_count = array_count_values($sport_category_array);
+
+  if($category1 !== '' && $category2 !== '' && $category3 !== ''){
+    $max = max($value_count);
+    var_dump($max);
+    if ($max !== 1) {
+      $error[$key] = '異なるスポーツジャンルを選択してください';
+    }
   }
+
   return $error;
 }
 
@@ -166,66 +170,24 @@ function getProfile($user_id){
   }
 }
 
-//プロフィール表示(スポーツジャンル1)
-function showProfileSportCategory1($profile){
-  switch($profile['sport_category1']){
+//プロフィール表示(スポーツジャンル)
+function showProfileSportCategory($profile){
+  switch($profile){
     case 'baseball':
-      $sport_category1 = '野球';
-      return $sport_category1;
+      $sport_category = '野球';
+      return $sport_category;
       break;
     case 'soccer':
-      $sport_category1 = 'サッカー';
-      return $sport_category1;
+      $sport_category = 'サッカー';
+      return $sport_category;
       break;
     case 'volleyball':
-      $sport_category1 = 'バレーボール';
-      return $sport_category1;
+      $sport_category = 'バレーボール';
+      return $sport_category;
       break;
     default;
-      $sport_category1 = '';
-      return $sport_category1;
-  }
-}
-
-//プロフィール表示(スポーツジャンル2)
-function showProfileSportCategory2($profile){
-  switch($profile['sport_category2']){
-    case 'baseball':
-      $sport_category2 = '野球';
-      return $sport_category2;
-      break;
-    case 'soccer':
-      $sport_category2 = 'サッカー';
-      return $sport_category2;
-      break;
-    case 'volleyball':
-      $sport_category2 = 'バレーボール';
-      return $sport_category2;
-      break;
-    default;
-      $sport_category2 = '';
-      return $sport_category2;
-  }
-}
-
-//プロフィール表示(スポーツジャンル3)
-function showProfileSportCategory3($profile){
-  switch($profile['sport_category3']){
-    case 'baseball':
-      $sport_category3 = '野球';
-      return $sport_category3;
-      break;
-    case 'soccer':
-      $sport_category3 = 'サッカー';
-      return $sport_category3;
-      break;
-    case 'volleyball':
-      $sport_category3 = 'バレーボール';
-      return $sport_category3;
-      break;
-    default:
-      $sport_category3 = '';
-      return $sport_category3;
+      $sport_category = '';
+      return $sport_category;
   }
 }
 

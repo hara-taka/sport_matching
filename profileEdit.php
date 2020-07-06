@@ -45,7 +45,7 @@ if($_POST){
     $error = profileEditEmailDoubleCheck($error, $email, $user_id);
 
     //スポーツジャンル重複チェック
-    $error = sportCategoryDoubleCheck($error, $category1, $category2, $category3);
+    $error = sportCategoryDoubleCheck($error, $category1, $category2, $category3, 'category');
 
     if(count($error) === 0){
 
@@ -133,14 +133,14 @@ if($_POST){
         <select name="category2">
           <option value=""></option>
           <option value="baseball" <?= $profile['sport_category2'] == 'baseball' ? 'selected' : '' ?>>野球</option>
-          <option value="soccer" <?= $profile['sport_category2'] == 'baseball' ? 'selected' : '' ?>>サッカー</option>
-          <option value="volleyball" <?= $profile['sport_category2'] == 'baseball' ? 'selected' : '' ?>>バレーボール</option>
+          <option value="soccer" <?= $profile['sport_category2'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
+          <option value="volleyball" <?= $profile['sport_category2'] == 'valleyball' ? 'selected' : '' ?>>バレーボール</option>
         </select>
         <select name="category3">
           <option value=""></option>
           <option value="baseball" <?= $profile['sport_category3'] == 'baseball' ? 'selected' : '' ?>>野球</option>
-          <option value="soccer" <?= $profile['sport_category3'] == 'baseball' ? 'selected' : '' ?>>サッカー</option>
-          <option value="volleyball" <?= $profile['sport_category3'] == 'baseball' ? 'selected' : '' ?>>バレーボール</option>
+          <option value="soccer" <?= $profile['sport_category3'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
+          <option value="volleyball" <?= $profile['sport_category3'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
         </select>
 
         <h2>自己紹介</h2>
