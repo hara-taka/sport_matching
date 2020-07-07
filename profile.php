@@ -37,17 +37,18 @@ try {
   </head>
   <body>
     <div class="profile_wrapper">
+      <a href="profileEdit.php">プロフィール編集</a>
       <?= showImg(sanitize($profile['image'])); ?>
       <h2>ユーザー名</h2>
       <?= sanitize($profile['name']); ?>
       <h2>性別</h2>
-      <?= sanitize($profile['gender']); ?>
+      <?= sanitize(showProfileGender($profile)); ?>
       <h2>年齢</h2>
-      <?= sanitize($profile['age']); ?>
+      <?= sanitize(showProfileAge($profile)); ?>
       <h2>スポーツジャンル</h2>
-      <?= sanitize($profile['sport_category1']); ?>
-      <?= sanitize($profile['sport_category2']); ?>
-      <?= sanitize($profile['sport_category3']); ?>
+      <?= sanitize(showProfileSportCategory($profile['sport_category1'])); ?>
+      <?= sanitize(showProfileSportCategory($profile['sport_category2'])); ?>
+      <?= sanitize(showProfileSportCategory($profile['sport_category3'])); ?>
       <h2>自己紹介</h2>
       <?= sanitize($profile['comment']); ?>
     </div>
