@@ -124,14 +124,12 @@ function passSameCheck($error, $str1, $str2, $key){
 function sportCategoryDoubleCheck($error, $category1, $category2, $category3,$key){
 
   $sport_category_array = [$category1, $category2, $category3];
-  $value_count = array_count_values($sport_category_array);
+  $category_array = array_filter($sport_category_array, "strlen");
+  $value_count = array_count_values($category_array);
+  $max = max($value_count);
 
-  if($category1 !== '' && $category2 !== '' && $category3 !== ''){
-    $max = max($value_count);
-    var_dump($max);
-    if ($max !== 1) {
-      $error[$key] = '異なるスポーツジャンルを選択してください';
-    }
+  if ($max == 2 || $max == 3) {
+    $error[$key] = '1異なるスポーツジャンルを選択してください';
   }
 
   return $error;
