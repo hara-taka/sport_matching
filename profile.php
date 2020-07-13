@@ -11,18 +11,45 @@ if(empty($_SESSION['user_id'])){
 
 $user_id = $_SESSION['user_id'];
 
+if($_GET['id']){
+  $to_user_id = $_GET['id'];
+}
+
 try {
   // データベースに接続
   $pdo = dbConnect();
 
   $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :id');
-  $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+  $stmt->bindValue(':id', $to_user_id, PDO::PARAM_INT);
   $stmt->execute();
   $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
 
   exit($e->getMessage());
+
+}
+
+//Likeボタンクリック時にreactionsテーブルにデータを挿入する処理
+if($_POST){
+
+  try {
+    $pdo = dbConnect();
+
+    $stmt = $pdo->prepare('INSERT INTO reactions (from_user_id,to_user_id,status,created_at,updated_at)
+                          VALUES(:from_user_id,:to_user_id,:status,:created_at,:updated_at)');
+    $stmt->bindValue(':from_user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':to_user_id', $to_user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':status', 1, PDO::PARAM_INT);
+    $stmt->bindValue(':created_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
+    $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
+    $stmt->execute();
+
+  } catch (PDOException $e) {
+
+    exit($e->getMessage());
+
+  }
 
 }
 
@@ -51,6 +78,11 @@ try {
       <?= sanitize(showProfileSportCategory($profile['sport_category3'])); ?>
       <h2>自己紹介</h2>
       <?= sanitize($profile['comment']); ?>
+      <?php if($profile['id'] !== $user_id): ?>
+        <form action="" method="post">
+          <button type="submit" name="like">Like</button>
+        </form>
+      <?php endif; ?>
     </div>
   </body>
 </html>
