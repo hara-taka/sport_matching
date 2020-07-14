@@ -11,16 +11,14 @@ if(empty($_SESSION['user_id'])){
 
 $user_id = $_SESSION['user_id'];
 
-$likeStatus = $_GET['status'];
-
 //likeをした、されたユーザーの情報の取得
 try {
   $pdo = dbConnect();
 
-  if($likeStatus == 'like'){
+  if($_GET['status'] == 'like'){
     $stmt = $pdo->prepare('SELECT users.id, users.name FROM users LEFT JOIN reactions ON users.id = reactions.to_user_id
                           WHERE reactions.from_user_id = :user_id');
-  }elseif($likeStatus == 'liked'){
+  }elseif($_GET['status'] == 'liked'){
     $stmt = $pdo->prepare('SELECT users.id, users.name FROM users LEFT JOIN reactions ON users.id = reactions.from_user_id
                           WHERE reactions.to_user_id = :user_id');
   }

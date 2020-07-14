@@ -118,7 +118,7 @@ if($_GET){
       </div>
       <div class="indexUser">
         <?php foreach($result as $userData): ?>
-          <a href="profile.php/?id=<?php echo $userData['id'] ?>"><h2><?= sanitize($userData['name']); ?></h2></a>
+          <a href="profile.php/?id=<?= $userData['id'] ?>"><h2><?= sanitize($userData['name']); ?></h2></a>
         <?php endforeach; ?>
       </div>
     </div>
