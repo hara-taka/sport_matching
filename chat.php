@@ -11,7 +11,7 @@ if(empty($_SESSION['user_id'])){
 
 $user_id = $_SESSION['user_id'];
 
-if($_GET['room_id'] && $_GET['chat_user']){
+if($_GET){
   $chat_room_id = $_GET['room_id'];
   $to_user_id = $_GET['chat_user'];
 }
@@ -40,8 +40,6 @@ try {
 //チャット送信処理
 if($_POST){
 
-  $message = $_POST['message'];
-
   try {
     $pdo = dbConnect();
 
@@ -49,7 +47,7 @@ if($_POST){
                           VALUES(:user_id,:chat_room_id,:message,:created_at,:updated_at)');
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->bindValue(':chat_room_id', $chat_room_id, PDO::PARAM_INT);
-    $stmt->bindValue(':message', $message, PDO::PARAM_STR);
+    $stmt->bindValue(':message', $_POST['message'], PDO::PARAM_STR);
     $stmt->bindValue(':created_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
     $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
     $stmt->execute();
