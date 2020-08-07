@@ -117,7 +117,7 @@ if($_POST){
   <body>
     <div class="profile_wrapper">
       <a href="profileEdit.php">プロフィール編集</a>
-      <?= showImg(sanitize($profile['image'])); ?>
+      <img src=<?= showImg(sanitize($profile['image'])); ?>>
       <h2>ユーザー名</h2>
       <?= sanitize($profile['name']); ?>
       <h2>性別</h2>

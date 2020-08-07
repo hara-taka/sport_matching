@@ -27,6 +27,40 @@ if($_POST){
   $comment = $_POST['comment'];
   $email = $_POST['email'];
 
+  //画像アップロード処理
+  if($_FILES['image']['name']){
+    try {
+      $path = $_FILES['image']['name'];
+      $file_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+      if($_FILES['image']['size'] > 2097152){
+          throw new RuntimeException('ファイルサイズが大きすぎます');
+      }
+
+      if($file_ext !== 'gif' && $file_ext !== 'png' && $file_ext !== 'jpg'){
+        throw new RuntimeException('画像形式が未対応です');
+      }
+
+      $path = 'img/'.sha1_file($_FILES['image']['tmp_name']).'.'.$file_ext;
+      if (!move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
+        throw new RuntimeException('ファイル保存時にエラーが発生しました');
+      }
+
+      chmod($path, 0644);
+
+    } catch (RuntimeException $e) {
+
+      $error['image'] = $e->getMessage();
+
+    }
+
+  }elseif($_FILES['image']['name'] == false){
+
+    $result = getProfile($user_id);
+    $path = $result['image'];
+
+  }
+
   //未入力チェック
   $error = emptyCheck($error, $name, 'name');
   $error = emptyCheck($error, $email, 'email');
@@ -53,12 +87,13 @@ if($_POST){
         // データベース接続
         $pdo = dbConnect();
 
-        $stmt = $pdo->prepare('UPDATE users SET name = :name, age = :age, gender = :gender, sport_category1 = :sport_category1,
+        $stmt = $pdo->prepare('UPDATE users SET name = :name, age = :age, gender = :gender, image = :image, sport_category1 = :sport_category1,
                 sport_category2 = :sport_category2, sport_category3 = :sport_category3, comment = :comment, email = :email, updated_at = :updated_at WHERE id = :id');
         $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':age', $age, PDO::PARAM_STR);
         $stmt->bindValue(':gender', $gender, PDO::PARAM_INT);
+        $stmt->bindValue(':image', $path, PDO::PARAM_STR);
         $stmt->bindValue(':sport_category1', $category1, PDO::PARAM_STR);
         $stmt->bindValue(':sport_category2', $category2, PDO::PARAM_STR);
         $stmt->bindValue(':sport_category3', $category3, PDO::PARAM_STR);
@@ -67,7 +102,7 @@ if($_POST){
         $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
         $stmt->execute();
 
-        header("Location:profile.php");
+        header("Location:profile.php?id=".$user_id);
 
         exit;
 
@@ -89,7 +124,14 @@ if($_POST){
   </head>
   <body>
     <div class="profileEdit_wrapper">
-      <form action="" method="post">
+      <form action="" method="post" enctype="multipart/form-data">
+        <div class="error">
+          <?php
+            if(!empty($error['image'])) echo $error['image'];
+          ?>
+          <input type="file" name="image">
+        </div>
+
         <h2>ユーザー名</h2>
         <div class="error">
           <?php
