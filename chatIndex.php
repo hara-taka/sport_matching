@@ -42,7 +42,7 @@ try {
   <body>
     <div class="indexUser">
       <?php foreach($result as $chatUser): ?>
-        <h2><?= sanitize($chatUser['name']); ?></h2>
+        <a href="chat.php/?room_id=<?= $chatUser['chat_room_id'] ?>&chat_user=<?= $chatUser['to_user_id'] ?>"><h2><?= sanitize($chatUser['name']); ?></h2></a>
       <?php endforeach; ?>
     </div>
   </body>
