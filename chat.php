@@ -52,7 +52,7 @@ if($_POST){
     $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
     $stmt->execute();
 
-    header("Location: ./?room_id=" . $chat_room_id . "&chat_user=" . $to_user_id);
+    header("Location: ./?room_id={$chat_room_id}&chat_user={$to_user_id}");
 
   } catch (PDOException $e) {
 

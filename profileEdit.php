@@ -102,7 +102,7 @@ if($_POST){
         $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
         $stmt->execute();
 
-        header("Location:profile.php?id=".$user_id);
+        header("Location:profile.php?id={$user_id}");
 
         exit;
 
