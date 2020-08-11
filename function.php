@@ -143,7 +143,7 @@ function sanitize($str){
 //画像表示
 function showImg($path){
   if($path){
-    return 'img/'.$path;
+    return $path;
   }else{
     return 'img/defaultImage.png';
   }
