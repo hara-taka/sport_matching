@@ -20,7 +20,7 @@ if($_GET){
 try {
   $pdo = dbConnect();
 
-  $stmt = $pdo->prepare('SELECT users.name,chat_message.message
+  $stmt = $pdo->prepare('SELECT users.name,users.image,chat_message.message
                         FROM users
                         JOIN chat_message ON users.id = chat_message.user_id
                         WHERE (chat_message.user_id = :user_id OR chat_message.user_id = :to_user_id) AND chat_message.chat_room_id = :chat_room_id
@@ -52,7 +52,7 @@ if($_POST){
     $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
     $stmt->execute();
 
-    header("Location: ./?room_id={$chat_room_id}&chat_user={$to_user_id}");
+    header("Location: chat.php?room_id={$chat_room_id}&chat_user={$to_user_id}");
 
   } catch (PDOException $e) {
 
@@ -67,17 +67,29 @@ if($_POST){
   <head>
     <meta charset="utf-8">
     <title>chat</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <?php
+      require('header.php');
+    ?>
   </head>
   <body>
-    <div class="chat_wrapper">
-      <?php foreach($result as $chat): ?>
-        <h2><?= sanitize($chat['name']); ?></h2>
-        <h2><?= sanitize($chat['message']); ?></h2>
-      <?php endforeach; ?>
+    <div class="chat_wrapper container">
+      <div class="scroll">
+        <?php foreach($result as $chat): ?>
+          <div class="chatData_wrapper">
+            <div class="userData">
+              <img src=<?= showImg(sanitize($chat['image'])); ?>>
+              <h2 class="userName"><?= sanitize($chat['name']); ?></h2>
+            </div>
+            <div class="chatMessage">
+              <h2><?= sanitize($chat['message']); ?></h2>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
 
       <form action="" method="post">
-        <textarea name="message" rows="10" cols="50"></textarea>
+        <textarea name="message" rows="5" cols="70"></textarea>
         <input type="submit" class="btn" value="送信">
       </form>
     </div>

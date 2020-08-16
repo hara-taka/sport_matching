@@ -79,9 +79,12 @@ if($_GET){
     <meta charset="utf-8">
     <title>一覧</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <?php
+      require('header.php');
+    ?>
   </head>
   <body>
-    <div class="indexUser_wrapper">
+    <div class="indexUser_wrapper container">
       <div class="searchUser">
         <form action="" method="get">
           <h1 class="search">検索</h1>
@@ -113,12 +116,17 @@ if($_GET){
           </select>
           <h2 class="sort">フリーワード</h2>
           <input type="text" name="keyword"></br>
-          <input type="submit" value="この条件で検索">
+          <input type="submit" value="この条件で検索" class="btn">
         </form>
       </div>
-      <div class="indexUser">
+      <div class="indexUserData">
         <?php foreach($result as $userData): ?>
-          <a href="profile.php/?id=<?= $userData['id'] ?>"><h2><?= sanitize($userData['name']); ?></h2></a>
+          <div class="indexUser">
+            <a href="profile.php?id=<?= $userData['id'] ?>">
+              <img src=<?= showImg(sanitize($userData['image'])); ?>>
+              <?= sanitize($userData['name']); ?>
+            </a>
+          </div>
         <?php endforeach; ?>
       </div>
     </div>
