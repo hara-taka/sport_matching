@@ -86,7 +86,7 @@ if($_GET){
   <body>
     <div class="indexUser_wrapper container">
       <div class="searchUser">
-        <form action="" method="get">
+        <form action="" method="get" class="searchUserForm">
           <h1 class="search">検索</h1>
           <h2 class="category">カテゴリー</h2>
           <select name="category">

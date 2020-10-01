@@ -9,10 +9,12 @@
           <li><a href="login.php">ログイン</a></li>
 
         <?php else: ?>
+          <?php $user_id = $_SESSION['user_id']; ?>
 
           <li><a href="index.php">一覧</a></li>
           <li><a href="like.php?status=like">Like</a></li>
           <li><a href="chatIndex.php">チャット</a></li>
+          <li><a href="profile.php?id=<?= $user_id ?>">プロフィール</a></li>
           <li><a href="logout.php">ログアウト</a></li>
 
         <?php endif; ?>

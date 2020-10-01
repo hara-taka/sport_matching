@@ -24,6 +24,14 @@ try {
   $stmt->execute();
   $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
+  $stmt = $pdo->prepare('SELECT * FROM reactions WHERE from_user_id = :from_user_id AND to_user_id = :to_user_id AND status = :status');
+  $stmt->bindValue(':to_user_id', $to_user_id, PDO::PARAM_INT);
+  $stmt->bindValue(':from_user_id', $user_id, PDO::PARAM_INT);
+  $stmt->bindValue(':status', 1, PDO::PARAM_INT);
+  $stmt->execute();
+  $matching = $stmt->fetch(PDO::FETCH_ASSOC);
+  var_dump($matching);
+
 } catch (PDOException $e) {
 
   exit($e->getMessage());
@@ -120,7 +128,10 @@ if($_POST){
   <body>
     <div class="profile_wrapper container">
       <img src=<?= showImg(sanitize($profile['image'])); ?>>
-      <a href="profileEdit.php">プロフィール編集</a>
+      <?php if($profile['id'] == $user_id): ?>
+        <a href="profileEdit.php">プロフィール編集</a>
+      <?php endif; ?>
+
       <table>
         <tr>
           <td class="userColumn">ユーザー名</td>
@@ -147,7 +158,11 @@ if($_POST){
           <td><?= sanitize($profile['comment']); ?></td>
         </tr>
       </table>
-      <?php if($profile['id'] !== $user_id): ?>
+      <?php if($matching): ?>
+        <form action="" method="post">
+          <button type="submit" name="like" class="btn" disabled>Like済み</button>
+        </form>
+      <?php elseif($profile['id'] !== $user_id): ?>
         <form action="" method="post">
           <button type="submit" name="like" class="btn">Like</button>
         </form>

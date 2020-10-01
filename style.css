@@ -23,17 +23,18 @@ h1, h2, h3, h4, h5, h6, p, div {
 }
 
 .header h1 {
-  padding-left: 10px;
+  padding-left: 20px;
   padding-top: 3px;
+  font-size: 30px;
 }
 
 .header ul {
   display: flex;
   list-style: none;
+  margin-left: 50px;
 }
 
 .header li {
-  margin-right: 10px;
   line-height: 50px;
 
 }
@@ -41,6 +42,7 @@ h1, h2, h3, h4, h5, h6, p, div {
 .header a {
   text-decoration: none;
   color: white;
+  padding-right: 20px;
 }
 
 .header .top_nav {
@@ -101,6 +103,13 @@ h1, h2, h3, h4, h5, h6, p, div {
   padding-left: 20px;
   font-size: 10px;
 
+}
+
+.searchUser .searchUserForm {
+  border: solid 3px black;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .searchUser select {
