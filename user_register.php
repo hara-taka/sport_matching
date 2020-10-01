@@ -71,9 +71,12 @@ if(!empty($_POST)){
         <meta charset="utf-8">
         <title>ユーザー登録</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <?php
+          require('header.php');
+        ?>
     </head>
     <body>
-        <div class="userResister_wrapper">
+        <div class="userResister_wrapper container">
           <h1>Register</h1>
           <form action="" method="post">
             <h2>ユーザー名</h2>
@@ -106,7 +109,7 @@ if(!empty($_POST)){
                 if(!empty($error['pass_re'])) echo $error['pass_re'];
               ?>
             </div>
-            <input type="password" name="pass_re">
+            <input type="password" name="pass_re"></br>
             <input type="submit" class="btn" value="登録する">
           </form>
         </div>

@@ -48,7 +48,7 @@ if($_POST){
         //ユーザーIDを格納
         $_SESSION['user_id'] = $result['id'];
 
-        header("Location:login.php");
+        header("Location:index.php");
 
         exit;
 
@@ -71,9 +71,12 @@ if($_POST){
     <meta charset="utf-8">
       <title>ログイン</title>
       <link rel="stylesheet" type="text/css" href="style.css">
+      <?php
+        require('header.php');
+      ?>
   </head>
   <body>
-    <div class="login_wrapper">
+    <div class="login_wrapper container">
       <h1>Login</h1>
       <form action="" method="post">
         <h2>メールアドレス</h2>
@@ -93,7 +96,7 @@ if($_POST){
             if(!empty($error['pass'])) echo $error['pass'];
           ?>
         </div>
-        <input type="password" name="pass">
+        <input type="password" name="pass"></br>
         <input type="submit" class="btn" value="ログイン">
       </form>
     </div>

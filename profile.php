@@ -24,6 +24,14 @@ try {
   $stmt->execute();
   $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
+  $stmt = $pdo->prepare('SELECT * FROM reactions WHERE from_user_id = :from_user_id AND to_user_id = :to_user_id AND status = :status');
+  $stmt->bindValue(':to_user_id', $to_user_id, PDO::PARAM_INT);
+  $stmt->bindValue(':from_user_id', $user_id, PDO::PARAM_INT);
+  $stmt->bindValue(':status', 1, PDO::PARAM_INT);
+  $stmt->execute();
+  $matching = $stmt->fetch(PDO::FETCH_ASSOC);
+  var_dump($matching);
+
 } catch (PDOException $e) {
 
   exit($e->getMessage());
@@ -113,26 +121,50 @@ if($_POST){
     <meta charset="utf-8">
     <title>プロフィール</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <?php
+      require('header.php');
+    ?>
   </head>
   <body>
-    <div class="profile_wrapper">
-      <a href="profileEdit.php">プロフィール編集</a>
+    <div class="profile_wrapper container">
       <img src=<?= showImg(sanitize($profile['image'])); ?>>
-      <h2>ユーザー名</h2>
-      <?= sanitize($profile['name']); ?>
-      <h2>性別</h2>
-      <?= sanitize(showProfileGender($profile)); ?>
-      <h2>年齢</h2>
-      <?= sanitize(showProfileAge($profile)); ?>
-      <h2>スポーツジャンル</h2>
-      <?= sanitize(showProfileSportCategory($profile['sport_category1'])); ?>
-      <?= sanitize(showProfileSportCategory($profile['sport_category2'])); ?>
-      <?= sanitize(showProfileSportCategory($profile['sport_category3'])); ?>
-      <h2>自己紹介</h2>
-      <?= sanitize($profile['comment']); ?>
-      <?php if($profile['id'] !== $user_id): ?>
+      <?php if($profile['id'] == $user_id): ?>
+        <a href="profileEdit.php">プロフィール編集</a>
+      <?php endif; ?>
+
+      <table>
+        <tr>
+          <td class="userColumn">ユーザー名</td>
+          <td><?= sanitize($profile['name']); ?></td>
+        </tr>
+        <tr>
+          <td class="userColumn">性別</td>
+          <td><?= sanitize(showProfileGender($profile)); ?></td>
+        </tr>
+        <tr>
+          <td class="userColumn">年齢</td>
+          <td><?= sanitize(showProfileAge($profile)); ?></td>
+        </tr>
+        <tr>
+          <td class="userColumn">スポーツジャンル</td>
+          <td>
+            <?= sanitize(showProfileSportCategory($profile['sport_category1'])); ?>
+            <?= sanitize(showProfileSportCategory($profile['sport_category2'])); ?>
+            <?= sanitize(showProfileSportCategory($profile['sport_category3'])); ?>
+          </td>
+        </tr>
+        <tr>
+          <td class="userColumn">自己紹介</td>
+          <td><?= sanitize($profile['comment']); ?></td>
+        </tr>
+      </table>
+      <?php if($matching): ?>
         <form action="" method="post">
-          <button type="submit" name="like">Like</button>
+          <button type="submit" name="like" class="btn" disabled>Like済み</button>
+        </form>
+      <?php elseif($profile['id'] !== $user_id): ?>
+        <form action="" method="post">
+          <button type="submit" name="like" class="btn">Like</button>
         </form>
       <?php endif; ?>
     </div>

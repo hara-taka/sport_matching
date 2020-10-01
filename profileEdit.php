@@ -121,85 +121,117 @@ if($_POST){
     <meta charset="utf-8">
     <title>プロフィール編集</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <?php
+      require('header.php');
+    ?>
   </head>
   <body>
-    <div class="profileEdit_wrapper">
+    <div class="profileEdit_wrapper container">
       <form action="" method="post" enctype="multipart/form-data">
-        <div class="error">
-          <?php
-            if(!empty($error['image'])) echo $error['image'];
-          ?>
-          <input type="file" name="image">
-        </div>
+        <table>
+          <div class="error">
+            <?php
+              if(!empty($error['image'])) echo $error['image'];
+            ?>
+            <tr>
+              <td class="userColumn">プロフィール画像</td>
+              <td><input type="file" name="image"></td>
+            </tr>
 
-        <h2>ユーザー名</h2>
-        <div class="error">
-          <?php
-            if(!empty($error['name'])) echo $error['name'];
-          ?>
-        </div>
-        <input type="text" name="name" value="<?= sanitize($profile['name']); ?>">
+            <tr>
+              <td class="userColumn">ユーザー名</td>
+              <td><input type="text" name="name" value="<?= sanitize($profile['name']); ?>">
+                <div class="error">
+                  <?php
+                    if(!empty($error['name'])) echo $error['name'];
+                  ?>
+                </div>
+              </td>
+            </tr>
 
-        <h2>性別</h2>
-        <select name="gender">
-          <option value=""></option>
-          <option value="1" <?= $profile['gender'] == '1' ? 'selected' : '' ?>>男性</option>
-          <option value="2" <?= $profile['gender'] == '2' ? 'selected' : '' ?>>女性</option>
-        </select>
+            <tr>
+              <td class="userColumn">性別</td>
+              <td>
+                <select name="gender">
+                  <option value=""></option>
+                  <option value="1" <?= $profile['gender'] == '1' ? 'selected' : '' ?>>男性</option>
+                  <option value="2" <?= $profile['gender'] == '2' ? 'selected' : '' ?>>女性</option>
+                </select>
+              </td>
+            </tr>
 
-        <h2>年齢</h2>
-        <select name="age">
-          <option value="10" <?= $profile['age'] == '10' ? 'selected' : '' ?>>10代</option>
-          <option value="20" <?= $profile['age'] == '20' ? 'selected' : '' ?>>20代</option>
-          <option value="30" <?= $profile['age'] == '30' ? 'selected' : '' ?>>30代</option>
-          <option value="40" <?= $profile['age'] == '40' ? 'selected' : '' ?>>40代</option>
-          <option value="50" <?= $profile['age'] == '50' ? 'selected' : '' ?>>50代</option>
-          <option value="60" <?= $profile['age'] == '60' ? 'selected' : '' ?>>60代</option>
-          <option value="70" <?= $profile['age'] == '70' ? 'selected' : '' ?>>70代</option>
-          <option value="80" <?= $profile['age'] == '80' ? 'selected' : '' ?>>80代</option>
-          <option value="90" <?= $profile['age'] == '90' ? 'selected' : '' ?>>90代</option>
-        </select>
+            <tr>
+              <td class="userColumn">年齢</td>
+              <td>
+                <select name="age">
+                  <option value="10" <?= $profile['age'] == '10' ? 'selected' : '' ?>>10代</option>
+                  <option value="20" <?= $profile['age'] == '20' ? 'selected' : '' ?>>20代</option>
+                  <option value="30" <?= $profile['age'] == '30' ? 'selected' : '' ?>>30代</option>
+                  <option value="40" <?= $profile['age'] == '40' ? 'selected' : '' ?>>40代</option>
+                  <option value="50" <?= $profile['age'] == '50' ? 'selected' : '' ?>>50代</option>
+                  <option value="60" <?= $profile['age'] == '60' ? 'selected' : '' ?>>60代</option>
+                  <option value="70" <?= $profile['age'] == '70' ? 'selected' : '' ?>>70代</option>
+                  <option value="80" <?= $profile['age'] == '80' ? 'selected' : '' ?>>80代</option>
+                  <option value="90" <?= $profile['age'] == '90' ? 'selected' : '' ?>>90代</option>
+                </select>
+              </td>
+            </tr>
 
-        <h2>スポーツジャンル</h2>
-        <div class="error">
-          <?php
-            if(!empty($error['category'])) echo $error['category'];
-          ?>
-        </div>
-        <select name="category1">
-          <option value=""></option>
-          <option value="baseball" <?= $profile['sport_category1'] == 'baseball' ? 'selected' : '' ?>>野球</option>
-          <option value="soccer" <?= $profile['sport_category1'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
-          <option value="volleyball" <?= $profile['sport_category1'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
-        </select>
-        <select name="category2">
-          <option value=""></option>
-          <option value="baseball" <?= $profile['sport_category2'] == 'baseball' ? 'selected' : '' ?>>野球</option>
-          <option value="soccer" <?= $profile['sport_category2'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
-          <option value="volleyball" <?= $profile['sport_category2'] == 'valleyball' ? 'selected' : '' ?>>バレーボール</option>
-        </select>
-        <select name="category3">
-          <option value=""></option>
-          <option value="baseball" <?= $profile['sport_category3'] == 'baseball' ? 'selected' : '' ?>>野球</option>
-          <option value="soccer" <?= $profile['sport_category3'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
-          <option value="volleyball" <?= $profile['sport_category3'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
-        </select>
+            <tr>
+              <td class="userColumn">スポーツジャンル</td>
+              <td>
+                <select name="category1">
+                  <option value=""></option>
+                  <option value="baseball" <?= $profile['sport_category1'] == 'baseball' ? 'selected' : '' ?>>野球</option>
+                  <option value="soccer" <?= $profile['sport_category1'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
+                  <option value="volleyball" <?= $profile['sport_category1'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
+                </select>
+                <select name="category2">
+                  <option value=""></option>
+                  <option value="baseball" <?= $profile['sport_category2'] == 'baseball' ? 'selected' : '' ?>>野球</option>
+                  <option value="soccer" <?= $profile['sport_category2'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
+                  <option value="volleyball" <?= $profile['sport_category2'] == 'valleyball' ? 'selected' : '' ?>>バレーボール</option>
+                </select>
+                <select name="category3">
+                  <option value=""></option>
+                  <option value="baseball" <?= $profile['sport_category3'] == 'baseball' ? 'selected' : '' ?>>野球</option>
+                  <option value="soccer" <?= $profile['sport_category3'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
+                  <option value="volleyball" <?= $profile['sport_category3'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
+                </select>
+                <div class="error">
+                  <?php
+                    if(!empty($error['category'])) echo $error['category'];
+                  ?>
+                </div>
+              </td>
+            </tr>
 
-        <h2>自己紹介</h2>
-        <div class="error">
-          <?php
-            if(!empty($error['comment'])) echo $error['comment'];
-          ?>
-        </div>
-        <textarea name="comment" rows="10" cols="50"><?= sanitize($profile['comment']); ?></textarea>
+            <tr>
+              <td class="userColumn">自己紹介</td>
+              <td>
+                <textarea name="comment" rows="10" cols="50"><?= sanitize($profile['comment']); ?></textarea>
+                <div class="error">
+                  <?php
+                    if(!empty($error['comment'])) echo $error['comment'];
+                  ?>
+                </div>
+              </td>
+            </tr>
 
-        <h2>メールアドレス</h2>
-        <div class="error">
-          <?php
-            if(!empty($error['email'])) echo $error['email'];
-          ?>
-        </div>
-        <input type="email" name="email" value="<?= sanitize($profile['email']); ?>">
+            <tr>
+              <td class="userColumn">メールアドレス</td>
+              <td>
+                <input type="email" name="email" value="<?= sanitize($profile['email']); ?>">
+                <div class="error">
+                  <?php
+                    if(!empty($error['email'])) echo $error['email'];
+                  ?>
+                </div>
+              </td>
+            </tr>
+
+          </div>
+        </table>
 
         <input type="submit" class="btn" value="修正">
       </form>

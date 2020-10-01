@@ -41,15 +41,24 @@ try {
     <meta charset="utf-8">
     <title>Like</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <?php
+      require('header.php');
+    ?>
   </head>
   <body>
-    <div class="indexUser">
-      <a href="./?status=like"><button type="button">相手へのLike</button></a>
-      <a href="./?status=liked"><button type="button">相手からのLike</button></a>
-      <?php foreach($result as $likeUser): ?>
-        <h2><?= sanitize($likeUser['image']); ?></h2>
-        <h2><?= sanitize($likeUser['name']); ?></h2>
-      <?php endforeach; ?>
+    <div class="likeUser_wrapper container">
+      <a href="?status=like"><button type="button" class="btn">相手へのLike</button></a>
+      <a href="?status=liked"><button type="button" class="btn">相手からのLike</button></a>
+      <div class="likeUserData">
+        <?php foreach($result as $likeUser): ?>
+          <div class="likeUser">
+            <a href="profile.php?id=<?= $likeUser['id'] ?>">
+              <img src=<?= showImg(sanitize($likeUser['image'])); ?>>
+              <h2><?= sanitize($likeUser['name']); ?></h2>
+            </a>
+          </div>
+        <?php endforeach; ?>
+      </div>
     </div>
   </body>
 </html>
