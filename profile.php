@@ -30,7 +30,6 @@ try {
   $stmt->bindValue(':status', 1, PDO::PARAM_INT);
   $stmt->execute();
   $matching = $stmt->fetch(PDO::FETCH_ASSOC);
-  var_dump($matching);
 
 } catch (PDOException $e) {
 

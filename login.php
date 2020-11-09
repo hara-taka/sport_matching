@@ -63,6 +63,31 @@ if($_POST){
   }
 
 }
+
+if($_POST['guestLogin']){
+  try {
+    // データベースに接続
+    $pdo = dbConnect();
+
+    $stmt = $pdo->prepare('SELECT password,id  FROM users WHERE email = :email');
+    $stmt->bindValue(':email', 'guest@test.test', PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    var_dump($result);
+
+  } catch (PDOException $e) {
+
+    exit($e->getMessage());
+
+  }
+
+  //ユーザーIDを格納
+  $_SESSION['user_id'] = $result['id'];
+
+  header("Location:index.php");
+
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +123,11 @@ if($_POST){
         </div>
         <input type="password" name="pass"></br>
         <input type="submit" class="btn" value="ログイン">
+      </form>
+      <form action="" method="post">
+        <h2>お試しでログインされる方はこちら</h2>
+
+        <input type="submit" class="btn" name="guestLogin" value="ゲストログイン">
       </form>
     </div>
   </body>
