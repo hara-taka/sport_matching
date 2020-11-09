@@ -24,10 +24,9 @@ try {
   $stmt->execute();
   $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  $stmt = $pdo->prepare('SELECT * FROM reactions WHERE from_user_id = :from_user_id AND to_user_id = :to_user_id AND status = :status');
+  $stmt = $pdo->prepare('SELECT * FROM reactions WHERE from_user_id = :from_user_id AND to_user_id = :to_user_id');
   $stmt->bindValue(':to_user_id', $to_user_id, PDO::PARAM_INT);
   $stmt->bindValue(':from_user_id', $user_id, PDO::PARAM_INT);
-  $stmt->bindValue(':status', 1, PDO::PARAM_INT);
   $stmt->execute();
   $matching = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -91,6 +90,8 @@ if($_POST){
       $stmt6->bindValue(':to_user_id', $user_id, PDO::PARAM_INT);
       $stmt6->execute();
 
+      header("Location:index.php");
+
     }elseif(!$result){
 
       //Likeボタンを押した相手からLikeされていないときの処理
@@ -102,6 +103,8 @@ if($_POST){
       $stmt7->bindValue(':created_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
       $stmt7->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
       $stmt7->execute();
+
+      header("Location:index.php");
     }
 
   } catch (PDOException $e) {
@@ -157,6 +160,7 @@ if($_POST){
           <td><?= sanitize($profile['comment']); ?></td>
         </tr>
       </table>
+
       <?php if($matching): ?>
         <form action="" method="post">
           <button type="submit" name="like" class="btn" disabled>Like済み</button>
