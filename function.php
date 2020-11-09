@@ -1,15 +1,10 @@
 <?php
+require('../database.php');
+
 //DB接続
 function dbConnect(){
-  $pdo = new PDO(
-    'mysql:dbname=sport;host=localhost;charset=utf8',
-    'root',
-    'root',
-    [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]
-  );
+  $pdo = new PDO(DSN, USERNAME, PASSWORD, OPTION);
+
   return $pdo;
 }
 
