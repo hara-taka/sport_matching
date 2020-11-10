@@ -178,6 +178,42 @@ function showProfileSportCategory($profile){
       $sport_category = 'バレーボール';
       return $sport_category;
       break;
+    case 'tennis':
+      $sport_category = 'テニス';
+      return $sport_category;
+      break;
+    case 'basketball':
+      $sport_category = 'バスケットボール';
+      return $sport_category;
+      break;
+    case 'badminton':
+      $sport_category = 'バドミントン';
+      return $sport_category;
+      break;
+    case 'tabletennis':
+      $sport_category = '卓球';
+      return $sport_category;
+      break;
+    case 'handball':
+      $sport_category = 'ハンドボール';
+      return $sport_category;
+      break;
+    case 'swimming':
+      $sport_category = '水泳';
+      return $sport_category;
+      break;
+    case 'running':
+      $sport_category = 'ランニング';
+      return $sport_category;
+      break;
+    case 'combatsport':
+      $sport_category = '格闘技';
+      return $sport_category;
+      break;
+    case 'other':
+      $sport_category = 'その他';
+      return $sport_category;
+      break;
     default;
       $sport_category = '';
       return $sport_category;

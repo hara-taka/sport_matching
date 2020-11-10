@@ -137,27 +137,29 @@ if($_POST){
       <table>
         <tr>
           <td class="userColumn">ユーザー名</td>
-          <td><?= sanitize($profile['name']); ?></td>
+          <td class="profile"><h3><?= sanitize($profile['name']); ?></h3></td>
         </tr>
         <tr>
           <td class="userColumn">性別</td>
-          <td><?= sanitize(showProfileGender($profile)); ?></td>
+          <td class="profile"><h3><?= sanitize(showProfileGender($profile)); ?></h3></td>
         </tr>
         <tr>
           <td class="userColumn">年齢</td>
-          <td><?= sanitize(showProfileAge($profile)); ?></td>
+          <td class="profile"><h3><?= sanitize(showProfileAge($profile)); ?></h3></td>
         </tr>
         <tr>
           <td class="userColumn">スポーツジャンル</td>
-          <td>
+          <td class="profile">
+            <h3>
             <?= sanitize(showProfileSportCategory($profile['sport_category1'])); ?>
             <?= sanitize(showProfileSportCategory($profile['sport_category2'])); ?>
             <?= sanitize(showProfileSportCategory($profile['sport_category3'])); ?>
+            </h3>
           </td>
         </tr>
         <tr>
           <td class="userColumn">自己紹介</td>
-          <td><?= sanitize($profile['comment']); ?></td>
+          <td class="profile"><h3><?= sanitize($profile['comment']); ?></h3></td>
         </tr>
       </table>
 

@@ -94,6 +94,15 @@ if($_GET){
             <option value="baseball">野球</option>
             <option value="soccer">サッカー</option>
             <option value="volleyball">バレーボール</option>
+            <option value="tennis">テニス</option>
+            <option value="basketball">バスケットボール</option>
+            <option value="badminton">バドミントン</option>
+            <option value="tabletennis">卓球</option>
+            <option value="handball">ハンドボール</option>
+            <option value="swimming">水泳</option>
+            <option value="running">ランニング</option>
+            <option value="combatsport">格闘技</option>
+            <option value="other">その他</option>
           </select>
           <h2 class="gender">性別</h2>
           <select name="gender">
