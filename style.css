@@ -214,11 +214,20 @@ h1, h2, h3, h4, h5, h6, p, div {
 
 .profile_wrapper .userColumn {
   font-weight: bold;
+  width: 150px;
 }
 
 .profile_wrapper form {
   text-align: center;
   padding-bottom: 20px;
+}
+
+
+.profile_wrapper .profile h3 {
+  font-weight: normal;
+  font-size: 15px;
+  word-wrap: break-word;
+  width: 350px;
 }
 
 .chat_wrapper {
@@ -255,6 +264,7 @@ h1, h2, h3, h4, h5, h6, p, div {
   font-size: 15px;
   margin-top: 5px;
   margin-left: 10px;
+  word-wrap: break-word;
 }
 
 .chat_wrapper form {

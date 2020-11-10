@@ -185,18 +185,45 @@ if($_POST){
                   <option value="baseball" <?= $profile['sport_category1'] == 'baseball' ? 'selected' : '' ?>>野球</option>
                   <option value="soccer" <?= $profile['sport_category1'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
                   <option value="volleyball" <?= $profile['sport_category1'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
+                  <option value="tennis" <?= $profile['sport_category1'] == 'tennis' ? 'selected' : '' ?>>テニス</option>
+                  <option value="basketball" <?= $profile['sport_category1'] == 'basketball' ? 'selected' : '' ?>>バスケットボール</option>
+                  <option value="badminton" <?= $profile['sport_category1'] == 'badminton' ? 'selected' : '' ?>>バドミントン</option>
+                  <option value="tabletennis" <?= $profile['sport_category1'] == 'tabletennis' ? 'selected' : '' ?>>卓球</option>
+                  <option value="handball" <?= $profile['sport_category1'] == 'handball' ? 'selected' : '' ?>>ハンドボール</option>
+                  <option value="swimming" <?= $profile['sport_category1'] == 'swimming' ? 'selected' : '' ?>>水泳</option>
+                  <option value="running" <?= $profile['sport_category1'] == 'runninng' ? 'selected' : '' ?>>ランニング</option>
+                  <option value="combatsport" <?= $profile['sport_category1'] == 'combatsport' ? 'selected' : '' ?>>格闘技</option>
+                  <option value="other" <?= $profile['sport_category1'] == 'other' ? 'selected' : '' ?>>その他</option>
                 </select>
                 <select name="category2">
                   <option value=""></option>
                   <option value="baseball" <?= $profile['sport_category2'] == 'baseball' ? 'selected' : '' ?>>野球</option>
                   <option value="soccer" <?= $profile['sport_category2'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
                   <option value="volleyball" <?= $profile['sport_category2'] == 'valleyball' ? 'selected' : '' ?>>バレーボール</option>
+                  <option value="tennis" <?= $profile['sport_category2'] == 'tennis' ? 'selected' : '' ?>>テニス</option>
+                  <option value="basketball" <?= $profile['sport_category2'] == 'basketball' ? 'selected' : '' ?>>バスケットボール</option>
+                  <option value="badminton" <?= $profile['sport_category2'] == 'badminton' ? 'selected' : '' ?>>バドミントン</option>
+                  <option value="tabletennis" <?= $profile['sport_category2'] == 'tabletennis' ? 'selected' : '' ?>>卓球</option>
+                  <option value="handball" <?= $profile['sport_category2'] == 'handball' ? 'selected' : '' ?>>ハンドボール</option>
+                  <option value="swimming" <?= $profile['sport_category2'] == 'swimming' ? 'selected' : '' ?>>水泳</option>
+                  <option value="running" <?= $profile['sport_category2'] == 'runninng' ? 'selected' : '' ?>>ランニング</option>
+                  <option value="combatsport" <?= $profile['sport_category2'] == 'combatsport' ? 'selected' : '' ?>>格闘技</option>
+                  <option value="other" <?= $profile['sport_category2'] == 'other' ? 'selected' : '' ?>>その他</option>
                 </select>
                 <select name="category3">
                   <option value=""></option>
                   <option value="baseball" <?= $profile['sport_category3'] == 'baseball' ? 'selected' : '' ?>>野球</option>
                   <option value="soccer" <?= $profile['sport_category3'] == 'soccer' ? 'selected' : '' ?>>サッカー</option>
                   <option value="volleyball" <?= $profile['sport_category3'] == 'volleyball' ? 'selected' : '' ?>>バレーボール</option>
+                  <option value="tennis" <?= $profile['sport_category3'] == 'tennis' ? 'selected' : '' ?>>テニス</option>
+                  <option value="basketball" <?= $profile['sport_category3'] == 'basketball' ? 'selected' : '' ?>>バスケットボール</option>
+                  <option value="badminton" <?= $profile['sport_category3'] == 'badminton' ? 'selected' : '' ?>>バドミントン</option>
+                  <option value="tabletennis" <?= $profile['sport_category3'] == 'tabletennis' ? 'selected' : '' ?>>卓球</option>
+                  <option value="handball" <?= $profile['sport_category3'] == 'handball' ? 'selected' : '' ?>>ハンドボール</option>
+                  <option value="swimming" <?= $profile['sport_category3'] == 'swimming' ? 'selected' : '' ?>>水泳</option>
+                  <option value="running" <?= $profile['sport_category3'] == 'runninng' ? 'selected' : '' ?>>ランニング</option>
+                  <option value="combatsport" <?= $profile['sport_category3'] == 'combatsport' ? 'selected' : '' ?>>格闘技</option>
+                  <option value="other" <?= $profile['sport_category3'] == 'other' ? 'selected' : '' ?>>その他</option>
                 </select>
                 <div class="error">
                   <?php
